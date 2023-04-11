@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -13,6 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
+
 
 namespace INTEX.Areas.Identity.Pages.Account
 {
@@ -51,15 +53,19 @@ namespace INTEX.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 15)]
+            [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$", ErrorMessage = "The password must be at least 10 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.")]
             [DataType(DataType.Password)]
             [Display(Name = "Password")]
             public string Password { get; set; }
+
 
             [DataType(DataType.Password)]
             [Display(Name = "Confirm password")]
             [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
             public string ConfirmPassword { get; set; }
+
+    
         }
 
         public async Task OnGetAsync(string returnUrl = null)
@@ -74,6 +80,24 @@ namespace INTEX.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
+                // Check if the password has been pwned
+                var password = Input.Password;
+                var pwnedChecker = new INTEX.Utilities.PwnedPasswordChecker();
+                var pwnedCount = await pwnedChecker.CheckPasswordAsync(password);
+                if (pwnedCount > 0)
+                {
+                    ModelState.AddModelError(string.Empty, "The password has been compromised and cannot be used. Please choose a different password.");
+                    return Page();
+                }
+
+                // Check password complexity
+                if (!IsPasswordComplex(password))
+                {
+                    ModelState.AddModelError(string.Empty, "The password must be at least 10 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
+                    return Page();
+                }
+
+                // The password is not compromised and meets complexity requirements, continue with registration
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
@@ -110,5 +134,13 @@ namespace INTEX.Areas.Identity.Pages.Account
             // If we got this far, something failed, redisplay form
             return Page();
         }
+
+        // Password complexity check function
+        private bool IsPasswordComplex(string password)
+        {
+            Regex passwordRegex = new Regex(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{10,}$");
+            return passwordRegex.IsMatch(password);
+        }
+
     }
 }
