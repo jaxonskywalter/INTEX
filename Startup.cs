@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
 using System.Collections.Generic;
 using System.Linq;
