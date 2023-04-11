@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,30 +6,117 @@
     <title>@ViewData["Title"] - INTEX</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+
+    <style>
+        body {
+            font-family: 'Georgia', serif;
+            background-color: #f4f1ea;
+            color: #4a4a4a;
+        }
+
+        .header {
+            background-color: #556B2F;
+            color: white;
+            text-align: center;
+            padding: 5rem 0;
+        }
+
+        .container {
+            margin-top: 3rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .goal {
+            background-color: #fff;
+            border: 1px solid #dedede;
+            border-radius: 5px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button {
+            background-color: #556B2F;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 2rem;
+        }
+
+            .cta-button:hover {
+                background-color: #6B8E23;
+                color: white;
+                text-decoration: none;
+            }
+
+        /* Navbar custom styles */
+        .navbar {
+            background-color: #8B4513;
+        }
+
+        .navbar-brand, .nav-link, .nav-link.text-dark {
+            color: white !important;
+        }
+
+            .nav-link:hover, .nav-link:focus {
+                color: #f4f1ea !important;
+                text-decoration: none;
+            }
+
+        .navbar .dropdown-menu {
+            background-color: #8B4513;
+        }
+
+        .navbar .dropdown-item {
+            color: white;
+        }
+
+            .navbar .dropdown-item:hover, .navbar .dropdown-item:focus {
+                background-color: #A0522D;
+                color: white;
+            }
+    </style>
+
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-light border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">INTEX</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-                    <partial name="_LoginPartial" />
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Data">Data</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Analysis
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" asp-controller="Home" asp-action="SupervisedAnalysis">Supervised Analysis</a>
+                                <a class="dropdown-item" asp-controller="Home" asp-action="UnsupervisedAnalysis">Unsupervised Analysis</a>
+                            </div>
                         </li>
                     </ul>
+                    <partial name="_LoginPartial" />
                 </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -38,12 +125,12 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2023 - INTEX - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2023 - INTEX
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

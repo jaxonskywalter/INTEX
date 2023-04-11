@@ -1,0 +1,28 @@
+
+@{
+    ViewData["Title"] = "Data";
+}
+
+<div class="container">
+    <h1>BURIAL DATA FROM DATABASE GOES HERE</h1>
+</div>
+
+
+@*@model BooksViewModel*@
+<!--I ADDED THIS BOOTSTRAP JUMBOTRON MYSELF-->
+<div class="jumbotron col-9">
+    <h1>Burial Data:</h1>
+</div>
+
+
+@*@foreach (Book b in Model.Books)
+{
+    <partial name="BookSummary" model="b" />
+}*@
+
+<p><b>Page:</b></p>
+
+<!--Dynamically creates page numbers to go to next set of books-->
+@*<div page-model="@Model.PageInfo" page-action="Index" page-class="btn"
+     page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-class-enabled="true"
+     class="btn-group pull-right m-1"></div>*@

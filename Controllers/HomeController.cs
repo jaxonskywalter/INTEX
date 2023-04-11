@@ -1,4 +1,4 @@
-﻿using INTEX.Models;
+using INTEX.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -23,7 +23,17 @@ namespace INTEX.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Data()
+        {
+            return View();
+        }
+
+        public IActionResult SupervisedAnalysis()
+        {
+            return View();
+        }
+
+        public IActionResult UnsupervisedAnalysis()
         {
             return View();
         }
