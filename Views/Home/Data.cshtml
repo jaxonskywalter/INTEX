@@ -3,26 +3,58 @@
     ViewData["Title"] = "Data";
 }
 
-<div class="container">
-    <h1>BURIAL DATA FROM DATABASE GOES HERE</h1>
-</div>
+@model RecordsViewModel
 
-
-@*@model BooksViewModel*@
-<!--I ADDED THIS BOOTSTRAP JUMBOTRON MYSELF-->
-<div class="jumbotron col-9">
+<!--BOOTSTRAP JUMBOTRON-->
+@*<div class="jumbotron">
     <h1>Burial Data:</h1>
+</div>*@
+
+<div style="margin: 20px">
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th scope="col">BurialID</th>
+                <th scope="col">Sex</th>
+                <th scope="col">Burial Depth</th>
+                <!--Estimated Stature-->
+                <th scope="col">Head Direction</th>
+                <th scope="col">Age at Death</th>
+                <th scope="col">Hair Color</th>
+                <!--Textile structure-->
+                <!--Textile color-->
+                <!--Textile function-->
+
+            </tr>
+        </thead>
+
+        <tbody>
+            @foreach (Burialmain b in Model.Records)
+            {
+                <tr>
+                    <td>@b.Id</td>
+                    <td>@b.Sex</td>
+                    <td>@b.Depth</td>
+                    <!--Estimated Stature-->
+
+                    <td>@b.Headdirection</td>
+                    <td>@b.Ageatdeath</td>
+                    <td>@b.Haircolor</td>
+                    <!--Textile structure-->
+                    <!--Textile color-->
+                    <!--Textile function-->
+                    @*<td><a asp-controller="Home" asp-action="Edit" asp-route-applicationid="@x.MovieID" class="btn btn-info" style="color: white;">Edit</a></td>
+                        <td><a asp-controller="Home" asp-action="Delete" asp-route-applicationid="@x.MovieID" class="btn btn-danger">Delete</a></td>*@
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
-
-@*@foreach (Book b in Model.Books)
-{
-    <partial name="BookSummary" model="b" />
-}*@
 
 <p><b>Page:</b></p>
 
 <!--Dynamically creates page numbers to go to next set of books-->
-@*<div page-model="@Model.PageInfo" page-action="Index" page-class="btn"
+<div page-model="@Model.PageInfo" page-action="Data" page-class="btn"
      page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-class-enabled="true"
-     class="btn-group pull-right m-1"></div>*@
+     class="btn-group pull-right m-1"></div>

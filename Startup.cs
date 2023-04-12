@@ -14,6 +14,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using INTEX.Models;
 
 namespace INTEX
 {
@@ -35,6 +36,12 @@ namespace INTEX
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            //SERVICE TO CONNECT WITH DATABASE CONTEXT FILE - ADDED BY JARED
+            services.AddDbContext<postgresContext>(options =>
+           {
+               options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
+           });
 
         }
 

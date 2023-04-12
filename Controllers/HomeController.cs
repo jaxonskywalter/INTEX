@@ -1,5 +1,7 @@
 using INTEX.Models;
+using INTEX.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -13,9 +15,13 @@ namespace INTEX.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        //FOR PASSING THE DATABASE STUFF INTO THE ANALYSIS
+        private postgresContext context { get; set; }
+
+        public HomeController(ILogger<HomeController> logger, postgresContext temp)
         {
             _logger = logger;
+            context = temp;
         }
 
         public IActionResult Index()
@@ -23,9 +29,29 @@ namespace INTEX.Controllers
             return View();
         }
 
-        public IActionResult Data()
+        public IActionResult Data(int pageNum = 1)
         {
-            return View();
+            int pageSize = 10;
+
+            // This is how we print off the information for each book
+            var x = new RecordsViewModel
+            {
+                Records = context.Burialmain
+                .OrderBy(p => p.Id)
+                .AsQueryable()
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+
+
+                PageInfo = new PageInfo
+                    {
+                        TotalNumRecords = context.Burialmain.Count(),
+                        RecordsPerPage = pageSize,
+                        CurrentPage = pageNum
+                    }
+            };
+
+            return View(x);
         }
 
         public IActionResult SupervisedAnalysis()
