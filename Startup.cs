@@ -42,7 +42,7 @@ namespace INTEX
 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -70,6 +70,46 @@ namespace INTEX
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            CreateAdminRole(services).GetAwaiter().GetResult();
         }
+
+        public async Task CreateAdminRole(IServiceProvider serviceProvider)
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+            string[] roleNames = { "Admin", "User" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            // Here you can create a default admin user and assign the "Admin" role
+            var adminUser = new IdentityUser
+            {
+                UserName = "admin",
+                Email = "admin@admin.com",
+            };
+            string adminPassword = "Admin123!"; // Use a strong password in a real-world scenario
+
+            var user = await UserManager.FindByEmailAsync(adminUser.Email);
+
+            if (user == null)
+            {
+                var createResult = await UserManager.CreateAsync(adminUser, adminPassword);
+                if (createResult.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(adminUser, "Admin");
+                }
+            }
+        }
+
     }
 }
