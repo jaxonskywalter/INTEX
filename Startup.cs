@@ -16,6 +16,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace INTEX
 {
     public class Startup
@@ -79,7 +80,8 @@ namespace INTEX
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
 
-            string[] roleNames = { "Admin", "User" };
+            string[] roleNames = { "Admin", "Researcher", "User" }; // Add "Researcher" to the list of roles
+
             IdentityResult roleResult;
 
             foreach (var roleName in roleNames)
