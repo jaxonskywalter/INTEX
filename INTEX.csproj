@@ -21,6 +21,12 @@
 
   <ItemGroup>
     <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
+    <None Remove="Infrastructure\" />
+    <None Remove="Models\ViewModels\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Infrastructure\" />
+    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
 
   <ItemGroup>
