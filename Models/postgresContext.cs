@@ -19,6 +19,9 @@ namespace INTEX.Models
         {
         }
 
+        // STUFF FOR PULLING RECORDS AND STUFF
+        public DbSet<Burialmain> Responses { get; set; }
+
         public virtual DbSet<Analysis> Analysis { get; set; }
         public virtual DbSet<AnalysisTextile> AnalysisTextile { get; set; }
         public virtual DbSet<Artifactfagelgamousregister> Artifactfagelgamousregister { get; set; }

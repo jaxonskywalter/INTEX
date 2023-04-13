@@ -4,57 +4,101 @@
 }
 
 @model RecordsViewModel
-
 <!--BOOTSTRAP JUMBOTRON-->
 @*<div class="jumbotron">
-    <h1>Burial Data:</h1>
-</div>*@
+        <h1>Burial Data:</h1>
+    </div>*@
 
-<div style="margin: 20px">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th scope="col">BurialID</th>
-                <th scope="col">Sex</th>
-                <th scope="col">Burial Depth</th>
-                <!--Estimated Stature-->
-                <th scope="col">Head Direction</th>
-                <th scope="col">Age at Death</th>
-                <th scope="col">Hair Color</th>
-                <!--Textile structure-->
-                <!--Textile color-->
-                <!--Textile function-->
+<!-- DATA TABLE -->
+<form method="get">
+    <div style="margin: 20px">
+        <button type="submit" class="btn btn-primary mb-1">Apply Filter</button>
+        <a class="btn btn-success mb-1 ml-auto" asp-controller="Home" asp-action="AddRecord" role="button">Add Record</a>
 
-            </tr>
-        </thead>
 
-        <tbody>
-            @foreach (Burialmain b in Model.Records)
-            {
+        <table class="table table-bordered table-striped">
+
+
+            <thead>
                 <tr>
-                    <td>@b.Id</td>
-                    <td>@b.Sex</td>
-                    <td>@b.Depth</td>
-                    <!--Estimated Stature-->
+                    <th scope="col">BurialID</th>
 
-                    <td>@b.Headdirection</td>
-                    <td>@b.Ageatdeath</td>
-                    <td>@b.Haircolor</td>
-                    <!--Textile structure-->
-                    <!--Textile color-->
-                    <!--Textile function-->
-                    @*<td><a asp-controller="Home" asp-action="Edit" asp-route-applicationid="@x.MovieID" class="btn btn-info" style="color: white;">Edit</a></td>
-                        <td><a asp-controller="Home" asp-action="Delete" asp-route-applicationid="@x.MovieID" class="btn btn-danger">Delete</a></td>*@
+                    <th scope="col">
+                        <label for="Sex">Sex</label>
+                        @*<select name="Sex">
+                            <option value="">SEX</option>
+                            <option value="Red">Male</option>
+                            <option value="Blue">Female</option>
+                        </select>*@
+                    </th>
+
+                    <th scope="col">Burial Depth</th>
+
+                    @*<th scope="col">Estimated Stature</th>*@
+
+                    <th scope="col">Head Direction</th>
+
+                    <th scope="col">
+                        <label for="AgeAtDeath">Age at Death</label>
+                        @*<select name="AgeAtDeath">
+                            <option value="">Age at Death:</option>
+                            <option value="A">Adult</option>
+                            <option value="C">Child</option>
+                            <option value="I">Infant</option>
+                            <option value="N">Newborn</option>
+                            <option value="U">Unkown</option>
+                        </select>*@
+                    </th>
+
+                    <th scope="col">Hair Color</th>
+
+                    <th scope="col">Textile structure</th>
+
+
+                    <th scope="col">
+                        <label for="textileColor">Textile Color:</label>
+                        @*<select name="textileColor">
+                            <option value="">--Select Color--</option>
+                            <option value="Red">Red</option>
+                            <option value="Blue">Blue</option>
+                            <option value="Green">Green</option>
+                        </select>*@
+                    </th>
+
+
+                    <th scope="col">Textile function</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
 
 
-<p><b>Page:</b></p>
+            <tbody>
+                @foreach (Burialmain b in Model.Records)
+                {
+                    <tr>
+                        <td>@b.Id</td>
+                        <td>@b.Sex</td>
+                        <td>@b.Depth</td>
+                        <!--Estimated Stature-->
+                        @*<td>@b.Bodyanalysischartreal</td>*@
 
-<!--Dynamically creates page numbers to go to next set of books-->
-<div page-model="@Model.PageInfo" page-action="Data" page-class="btn"
-     page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-class-enabled="true"
-     class="btn-group pull-right m-1"></div>
+                        <td>@b.Headdirection</td>
+                        <td>@b.Ageatdeath</td>
+                        <td>@b.Haircolor</td>
+                        <!--Textile structure--><td></td>
+                        <!--Textile color--><td></td>
+                        <!--Textile function--><td></td>
+                        <td><a asp-controller="Home" asp-action="Edit" asp-route-burialid="@b.Id" class="btn btn-info" style="color: white;">Edit</a></td>
+                        <td><a asp-controller="Home" asp-action="Delete" asp-route-burialid="@b.Id" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</form>
+
+    <p><b>Page:</b></p>
+
+    <!--Dynamically creates page numbers to go to next set of books-->
+    <div page-model="@Model.PageInfo" page-action="Data" page-class="btn"
+         page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-class-enabled="true"
+         class="btn-group pull-right m-1"></div>
