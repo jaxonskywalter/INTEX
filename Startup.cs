@@ -96,10 +96,10 @@ namespace INTEX
             // Here you can create a default admin user and assign the "Admin" role
             var adminUser = new IdentityUser
             {
-                UserName = "admin",
+                UserName = "admin@admin.com",
                 Email = "admin@admin.com",
             };
-            string adminPassword = "Admin123!"; // Use a strong password in a real-world scenario
+            string adminPassword = "A3b!q7zP*8t2uYx"; // Use a strong password in a real-world scenario
 
             var user = await UserManager.FindByEmailAsync(adminUser.Email);
 
