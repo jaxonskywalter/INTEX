@@ -15,6 +15,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.ML.OnnxRuntime;
+using INTEX.Models;
 
 namespace INTEX
 {
@@ -31,7 +33,7 @@ namespace INTEX
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -39,6 +41,15 @@ namespace INTEX
 
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -56,6 +67,8 @@ namespace INTEX
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseHsts();
+
             app.UseStaticFiles();
 
             app.UseRouting();

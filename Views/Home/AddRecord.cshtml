@@ -1,0 +1,43 @@
+﻿
+@{
+    ViewData["Title"] = "Add Record";
+}
+
+
+@model INTEX.Models.Burialmain
+
+<div class="border p-4">
+    <form method="post">
+        <label asp-for="Id">Burial ID:</label>
+        <input asp-for="Id" class="form-control"/>
+
+        <label asp-for="Sex">Sex:</label>
+        <select asp-for="Sex" class="form-control">
+            <option value="">Select</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+
+        <label asp-for="Depth">Depth:</label>
+        <input asp-for="Depth" class="form-control" />
+
+        <label asp-for="Headdirection">Head Direction:</label>
+        <input asp-for="Headdirection" class="form-control" />
+
+        <label asp-for="Haircolor">Hair Color:</label>
+        <input asp-for="Haircolor" class="form-control" />
+
+        <label asp-for="Ageatdeath">Age at Death:</label>
+        <select asp-for="Ageatdeath" class="form-control">
+            <option value="">Select</option>
+            <option value="A">Adult</option>
+            <option value="C">Child</option>
+            <option value="I">Infant</option>
+            <option value="N">Newborn</option>
+            <option value="U">Unkown</option>
+        </select>
+
+
+        <button type="submit" class="btn btn-success mt-3">Add Record</button>
+    </form>
+</div>
