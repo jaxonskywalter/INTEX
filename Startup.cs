@@ -14,6 +14,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.ML.OnnxRuntime;
 using INTEX.Models;
 
 namespace INTEX
@@ -36,12 +37,23 @@ namespace INTEX
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSingleton<InferenceSession>(
+                new InferenceSession("./wwwroot/mummy-6.onnx")
+);
 
             //SERVICE TO CONNECT WITH DATABASE CONTEXT FILE - ADDED BY JARED
             services.AddDbContext<postgresContext>(options =>
            {
                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
            });
+
+            services.AddHsts(options =>
+            {
+                options.Preload = true;
+                options.IncludeSubDomains = true;
+                options.MaxAge = TimeSpan.FromDays(365);
+            });
+
 
         }
 
@@ -60,6 +72,8 @@ namespace INTEX
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+            app.UseHsts();
+
             app.UseStaticFiles();
 
             app.UseRouting();
