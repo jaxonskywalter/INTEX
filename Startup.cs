@@ -38,7 +38,7 @@ namespace INTEX
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSingleton<InferenceSession>(
-                new InferenceSession("./Analysis/mummy-6.onnx")
+                new InferenceSession("./wwwroot/mummy-6.onnx")
 );
 
             //SERVICE TO CONNECT WITH DATABASE CONTEXT FILE - ADDED BY JARED
