@@ -6,14 +6,18 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using INTEX.Models.ViewModels;
 
 namespace INTEX.Controllers
 {
-    [Authorize(Roles = "Admin")] // Restrict access to Admins only
+    [Authorize(Roles = "Admin, Researcher")] // Restrict access to Admins only
     public class AdminController : Controller
     {
         private readonly UserManager<IdentityUser> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
+
+        //FOR PASSING THE DATABASE STUFF INTO THE ANALYSIS
+        private postgresContext context { get; set; }
 
         public AdminController(UserManager<IdentityUser> userManager, RoleManager<IdentityRole> roleManager)
         {
@@ -177,6 +181,71 @@ namespace INTEX.Controllers
             return View();
         }
 
+        // ADD RECORD PAGE
+        [HttpGet]
+        [Authorize(Roles = "researcher, admin")]
+        public IActionResult AddRecord()
+        {
+            return View();
+        }
 
+        [HttpPost]
+        [Authorize(Roles = "researcher, admin")]
+        public IActionResult AddRecord(Burialmain bm)
+        {
+
+            context.Add(bm);
+            context.SaveChanges();
+            return View("Confirmation", bm);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "researcher, admin")]
+        public IActionResult Edit(long burialid)
+        {
+            // Retrieve the burial record with the given burialid from the database
+            var burialRecord = context.Burialmain.SingleOrDefault(x => x.Id == burialid);
+
+            if (burialRecord == null)
+            {
+                return NotFound(); // Return 404 error if the burial record is not found
+            }
+
+            // Pass the burial record to the AddRecord view so that it can be edited
+            return View("AddRecord", burialRecord);
+        }
+
+
+        [HttpPost]
+        [Authorize(Roles = "researcher, admin")]
+        public IActionResult Edit(Burialmain bm)
+        {
+            context.Update(bm);
+            context.SaveChanges();
+
+            return RedirectToAction("Data");
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "researcher, admin")]
+        public IActionResult Delete(long burialid)
+        {
+            var burialRecord = context.Burialmain.SingleOrDefault(x => x.Id == burialid);
+
+            return View(burialRecord);
+        }
+
+        [HttpPost]
+        [Authorize(Roles = "researcher, admin")]
+        public IActionResult Delete(Burialmain bm)
+        {
+            context.Remove(bm);
+            context.SaveChanges();
+
+            return RedirectToAction("Data");
+        }
     }
 }
+
