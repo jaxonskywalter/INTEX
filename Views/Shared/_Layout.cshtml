@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="~/css/site.css" />
     @RenderSection("Styles", required: false)
 
+    @await RenderSectionAsync("Styles", required: false)
+
     <style>
         body {
             font-family: 'Georgia', serif;
