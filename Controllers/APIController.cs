@@ -1,4 +1,5 @@
-﻿
+﻿//controller that calls in the data from the ONNX file
+
 using System.Collections.Generic;
 using System.Linq;
 using INTEX.Models;
