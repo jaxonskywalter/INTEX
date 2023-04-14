@@ -16,7 +16,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-
 namespace INTEX
 {
     public class Startup
@@ -32,15 +31,15 @@ namespace INTEX
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultUI();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
-
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
@@ -72,46 +71,10 @@ namespace INTEX
                 endpoints.MapRazorPages();
             });
 
-            CreateAdminRole(services).GetAwaiter().GetResult();
-        }
-
-        public async Task CreateAdminRole(IServiceProvider serviceProvider)
-        {
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
-
-            string[] roleNames = { "Admin", "Researcher", "User" }; // Add "Researcher" to the list of roles
-
-            IdentityResult roleResult;
-
-            foreach (var roleName in roleNames)
-            {
-                var roleExist = await RoleManager.RoleExistsAsync(roleName);
-                if (!roleExist)
-                {
-                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
-                }
-            }
-
-            // Here you can create a default admin user and assign the "Admin" role
-            var adminUser = new IdentityUser
-            {
-                UserName = "admin@admin.com",
-                Email = "admin@admin.com",
-            };
-            string adminPassword = "A3b!q7zP*8t2uYx"; // Use a strong password in a real-world scenario
-
-            var user = await UserManager.FindByEmailAsync(adminUser.Email);
-
-            if (user == null)
-            {
-                var createResult = await UserManager.CreateAsync(adminUser, adminPassword);
-                if (createResult.Succeeded)
-                {
-                    await UserManager.AddToRoleAsync(adminUser, "Admin");
-                }
-            }
+            DataSeeder.SeedRolesAndAdminAsync(services).GetAwaiter().GetResult();
         }
 
     }
+
 }
+
