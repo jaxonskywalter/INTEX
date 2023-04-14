@@ -38,7 +38,7 @@ namespace INTEX
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddSingleton<InferenceSession>(
-                new InferenceSession("./Analysis/mummy-6.onnx")
+                new InferenceSession("./wwwroot/mummy-6.onnx")
 );
 
             //SERVICE TO CONNECT WITH DATABASE CONTEXT FILE - ADDED BY JARED
@@ -80,6 +80,13 @@ namespace INTEX
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.Use(async (context, next) =>
+            {
+                context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; style-src * 'unsafe-inline'; img-src 'self' https://media.cnn.com/api/v1/images/stellar/prod/181106093431-egypt-giza-pyramids-file.jpg?q=w_1347,h_1796,x_826,y_0,c_crop; script-src * 'unsafe-inline';");
+                await next();
+            });
+
 
             app.UseEndpoints(endpoints =>
             {

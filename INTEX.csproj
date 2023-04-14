@@ -31,4 +31,7 @@
     <Folder Include="Infrastructure\" />
     <Folder Include="Models\ViewModels\" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\mummy-6.onnx" />
+  </ItemGroup>
 </Project>
