@@ -14,14 +14,14 @@
 
 
 <header class="site-header" id="header">
-    <h1 data-lead-id="site-header-title">Are you sure you want to delete: <br /> <span style="color: deepskyblue;">@Model.Id</span></h1>
+    <h1 data-lead-id="site-header-title">Are you sure you want to delete:  <span style="font-weight:bold">@Model.Id</span></h1>
 </header>
 
 <div class="main-content" style="margin-bottom: 400px;">
     <i class="fa fa-check main-content__checkmark" id="checkmark"></i>
     <form method="post" asp-controller="Home" asp-action="Delete" style="margin-bottom: 100px;">
         <button type="submit" class="btn btn-danger">Delete</button>
-        <a asp-controller="Home" asp-action="Data" class="btn btn-primary" style="color: white;">Cancel</a>
+        <a asp-controller="Home" asp-action="Data" class="btn btn-primary">Cancel</a>
 
         <input type="hidden" asp-for="Id" />
     </form>
