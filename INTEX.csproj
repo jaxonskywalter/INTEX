@@ -28,12 +28,4 @@
     <Folder Include="Infrastructure\" />
     <Folder Include="Models\ViewModels\" />
   </ItemGroup>
-
-  <ItemGroup>
-    <None CopyToPublishDirectory="Always" Include=".ebextensions\00_install_certbot.config" />
-    <None CopyToPublishDirectory="Always" Include=".ebextensions\01_open_https_port.config" />
-    <None CopyToPublishDirectory="Always" Include=".ebextensions\02_grant_executable_rights.config" />
-    <None CopyToPublishDirectory="Always" Include=".ebextensions\03_renew_ssl_certificate_cron_job.config" />
-    <None CopyToPublishDirectory="Always" Include=".platform\hooks\postdeploy\00_get_certificate.sh" />
-  </ItemGroup>
 </Project>
