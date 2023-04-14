@@ -16,6 +16,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.ML.OnnxRuntime;
 using INTEX.Models;
+using Microsoft.Extensions.FileProviders;
+using System.IO;
 
 namespace INTEX
 {
@@ -37,6 +39,7 @@ namespace INTEX
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            //connects the ONNX file to the web app
             services.AddSingleton<InferenceSession>(
                 new InferenceSession("./wwwroot/mummy-6.onnx")
 );
@@ -74,12 +77,18 @@ namespace INTEX
             app.UseHttpsRedirection();
             app.UseHsts();
 
-            app.UseStaticFiles();
-
             app.UseRouting();
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            // This is the CSP Header below. We had it blocking everything except the resources we were using, but it was being too finicky and blocking some things we needed so we had to comment it out for now
+
+            //app.Use(async (context, next) =>
+            //{
+            //    context.Response.Headers.Add("Content-Security-Policy", "default-src 'self'; style-src ‘sha256-LLMSint/uIRJDDcg+FpbE8hXHWu1XGCX4w6kOG+He5s=’ 'sha256-wCaebHVhiA7IFD0Vg2zVjzE0agFnPKYqzJ5wsPhB2/s=' ‘sha256-nJ4X8OouhFxf1XORLrnL8iOirugq9h4hz5HyWnfmD94=’; img-src 'self' https://media.cnn.com/api/v1/images/stellar/prod/181106093431-egypt-giza-pyramids-file.jpg?q=w_1347,h_1796,x_826,y_0,c_crop; script-src 'self';");
+            //    await next();
+            //});
 
             app.UseEndpoints(endpoints =>
             {

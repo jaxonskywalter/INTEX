@@ -40,4 +40,7 @@
   <ItemGroup>
     <None Include="wwwroot\mummy-6.onnx" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\mummy-6.onnx" />
+  </ItemGroup>
 </Project>

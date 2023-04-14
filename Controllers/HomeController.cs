@@ -27,6 +27,16 @@ namespace INTEX.Controllers
             context = temp;
         }
 
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult EgyptLaw()
+        {
+            return View();
+        }
+
         public IActionResult Index()
         {
             return View();
