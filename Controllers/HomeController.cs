@@ -188,7 +188,7 @@ namespace INTEX.Controllers
             }
 
             // Pass the burial record to the AddRecord view so that it can be edited
-            return View("AddRecord", burialRecord);
+            return View(burialRecord);
         }
 
 
