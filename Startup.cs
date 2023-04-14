@@ -33,7 +33,7 @@ namespace INTEX
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -93,7 +93,7 @@ namespace INTEX
                 endpoints.MapRazorPages();
             });
 
-            DataSeeder.SeedRolesAndAdminAsync(services).GetAwaiter().GetResult();
+            //DataSeeder.SeedRolesAndAdminAsync(services).GetAwaiter().GetResult();
         }
 
     }

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 
@@ -27,6 +29,9 @@ public class DataSeeder
             Email = "ADMIN@ADMIN.COM",
         };
         string adminPassword = "A3b!q7zP*8t2uYx";
+        var users = await userManager.Users
+                .Where(u => u.NormalizedEmail == adminUser.NormalizedEmail)
+                .ToListAsync();
 
         var user = await userManager.FindByEmailAsync(adminUser.Email);
 

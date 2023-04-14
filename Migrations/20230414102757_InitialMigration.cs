@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace INTEX.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -48,11 +47,57 @@ namespace INTEX.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Responses",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Squarenorthsouth = table.Column<string>(nullable: true),
+                    Headdirection = table.Column<string>(nullable: true),
+                    Sex = table.Column<string>(nullable: true),
+                    Northsouth = table.Column<string>(nullable: true),
+                    Depth = table.Column<string>(nullable: true),
+                    Eastwest = table.Column<string>(nullable: true),
+                    Adultsubadult = table.Column<string>(nullable: true),
+                    Facebundles = table.Column<string>(nullable: true),
+                    Southtohead = table.Column<string>(nullable: true),
+                    Preservation = table.Column<string>(nullable: true),
+                    Fieldbookpage = table.Column<string>(nullable: true),
+                    Squareeastwest = table.Column<string>(nullable: true),
+                    Goods = table.Column<string>(nullable: true),
+                    Text = table.Column<string>(nullable: true),
+                    Wrapping = table.Column<string>(nullable: true),
+                    Haircolor = table.Column<string>(nullable: true),
+                    Westtohead = table.Column<string>(nullable: true),
+                    Samplescollected = table.Column<string>(nullable: true),
+                    Area = table.Column<string>(nullable: true),
+                    Burialid = table.Column<long>(nullable: true),
+                    Length = table.Column<string>(nullable: true),
+                    Burialnumber = table.Column<string>(nullable: true),
+                    Dataexpertinitials = table.Column<string>(nullable: true),
+                    Westtofeet = table.Column<string>(nullable: true),
+                    Ageatdeath = table.Column<string>(nullable: true),
+                    Southtofeet = table.Column<string>(nullable: true),
+                    Excavationrecorder = table.Column<string>(nullable: true),
+                    Photos = table.Column<string>(nullable: true),
+                    Hair = table.Column<string>(nullable: true),
+                    Burialmaterials = table.Column<string>(nullable: true),
+                    Dateofexcavation = table.Column<DateTime>(nullable: true),
+                    Fieldbookexcavationyear = table.Column<string>(nullable: true),
+                    Clusternumber = table.Column<string>(nullable: true),
+                    Shaftnumber = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Responses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -73,7 +118,7 @@ namespace INTEX.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -162,7 +207,8 @@ namespace INTEX.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -188,7 +234,8 @@ namespace INTEX.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true);
+                unique: true,
+                filter: "[NormalizedUserName] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -207,6 +254,9 @@ namespace INTEX.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "Responses");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
