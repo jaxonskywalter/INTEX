@@ -6,6 +6,7 @@ namespace INTEX.Models
 {
     public class CreateUserViewModel
     {
+
         public string Id { get; set; }
 
         [Required]

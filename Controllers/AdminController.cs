@@ -89,12 +89,15 @@ namespace INTEX.Controllers
                 return NotFound();
             }
 
-            // Set the IsEdit property to true
-            var model = new CreateUserViewModel { UserName = user.UserName, Email = user.Email, IsEdit = true };
+            var roles = _roleManager.Roles.ToList();
+
+            // Set the IsEdit property to true and populate the Roles property
+            var model = new CreateUserViewModel { UserName = user.UserName, Email = user.Email, IsEdit = true, Roles = roles };
 
             // Use the "Create" view with the updated model
             return View("CreateUsers", model);
         }
+
 
 
         [HttpPost]
