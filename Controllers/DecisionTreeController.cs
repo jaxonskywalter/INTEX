@@ -1,4 +1,6 @@
-﻿//using Python.Runtime;
+﻿//my attempt at using the supervised model through a pkl file
+
+//using Python.Runtime;
 //public class DecisionTreeModel
 //{
 //    private dynamic _model;
