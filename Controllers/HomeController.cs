@@ -11,6 +11,8 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace INTEX.Controllers
 {
@@ -57,37 +59,8 @@ namespace INTEX.Controllers
             return View(x);
         }
 
-        //public IActionResult Data(int pageNum = 1)
-        //{
-        //    int pageSize = 10; // number of records per page
 
-        //    // calculate the number of records to skip based on the current page number and page size
-        //    int skip = (pageNum - 1) * pageSize;
-
-        //    // retrieve a subset of the data from the database using Skip() and Take() methods
-        //    var burials = context.Burialmain
-        //        .Skip(skip)
-        //        .Take(pageSize)
-        //        .ToList();
-
-        //    // calculate the total number of pages based on the total number of records and page size
-        //    int totalPages = (int)Math.Ceiling(context.Burialmain.Count() / (double)pageSize);
-
-        //    // pass the subset of data and pagination information to the view
-        //    ViewBag.CurrentPage = pageNum;
-        //    ViewBag.TotalPages = totalPages;
-
-        //    return View(burials);
-        //}
-
-        /// SHOW MORE INFO FOR A RECORD
-        ///
-        //[HttpGet]
-        //public IActionResult MoreInfo()
-        //{
-        //    return View();
-        //}
-
+        //FILTERING
 
         [HttpGet]
         public IActionResult MoreInfo(long burialid)
@@ -146,6 +119,9 @@ namespace INTEX.Controllers
                     RecordsPerPage = pageSize,
                     CurrentPage = pageNum
                 }
+            var model = new RecordsViewModel
+            {
+                Records = (IQueryable<Burialmain>)records.ToList()
             };
 
 

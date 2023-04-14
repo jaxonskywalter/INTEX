@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using INTEX.Models;
 using System;
 using Npgsql;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
@@ -34,18 +35,12 @@ namespace INTEX
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultUI();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
-            services.AddSingleton<InferenceSession>(
-                new InferenceSession("./wwwroot/mummy-6.onnx")
-);
-
-            //SERVICE TO CONNECT WITH DATABASE CONTEXT FILE - ADDED BY JARED
-            services.AddDbContext<postgresContext>(options =>
-           {
-               options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"));
-           });
 
             services.AddHsts(options =>
             {
@@ -58,7 +53,7 @@ namespace INTEX
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -88,6 +83,11 @@ namespace INTEX
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            DataSeeder.SeedRolesAndAdminAsync(services).GetAwaiter().GetResult();
         }
+
     }
+
 }
+
