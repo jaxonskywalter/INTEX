@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using INTEX.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -12,5 +13,9 @@ namespace INTEX.Data
             : base(options)
         {
         }
+
+
+        // MAYBE DELTE THIS LATER - JARED
+        public DbSet<Burialmain> Responses { get; set; }
     }
 }

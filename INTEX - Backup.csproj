@@ -6,17 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\DataInitializer.cs" />
-    <Compile Remove="Models\CreateUserViewModel.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Remove="Views\Admin\Create.cshtml" />
-    <Content Remove="Views\Admin\Edit.cshtml" />
-    <Content Remove="Views\Admin\Index.cshtml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.31" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.32" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.32" />
@@ -35,20 +24,5 @@
 
   <ItemGroup>
     <None Remove="Npgsql.EntityFrameworkCore.PostgreSQL" />
-    <None Remove="Infrastructure\" />
-    <None Remove="Models\ViewModels\" />
-    <None Remove="Components\" />
-    <None Remove="Views\Shared\Components\" />
-    <None Remove="Views\Shared\Components\Types\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Models\ViewModels\" />
-    <Folder Include="Components\" />
-    <Folder Include="Views\Shared\Components\" />
-    <Folder Include="Views\Shared\Components\Types\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\mummy-6.onnx" />
   </ItemGroup>
 </Project>

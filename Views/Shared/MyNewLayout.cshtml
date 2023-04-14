@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,7 +6,6 @@
     <title>@ViewData["Title"] - INTEX</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    @RenderSection("Styles", required: false)
 
     <style>
         body {
@@ -89,7 +88,7 @@
 
 
     <!-- FOR HIGHLIGHTING THE ROWS IN THE DATA TABLE -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!--<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>$(document).ready(function () {
             $('tr').hover(
                 function () {
@@ -103,7 +102,7 @@
             $('tr').click(function () {
                 window.location.href = "your_link_here";
             });
-        });</script>
+        });</script>-->
 
 </head>
 <body>
@@ -136,8 +135,8 @@
         </nav>
     </header>
 
-    <div class="container">
-        <main role="main" class="pb-4">
+    <div class="">
+        <main role="main" class="pb-5">
             @RenderBody()
         </main>
     </div>
@@ -151,14 +150,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-
-
-    <!-- COOKIE POLICY BANNER-->
-    <script type="text/javascript">var _iub = _iub || [];
-        _iub.csConfiguration = { "askConsentAtCookiePolicyUpdate": true, "countryDetection": true, "enableLgpd": true, "enableUspr": true, "floatingPreferencesButtonDisplay": "bottom-right", "gdprAppliesGlobally": false, "lang": "en", "lgpdAppliesGlobally": false, "perPurposeConsent": true, "whitelabel": false, "cookiePolicyId": 81006701, "siteId": 3086648, "banner": { "acceptButtonDisplay": true, "closeButtonDisplay": false, "customizeButtonDisplay": true, "explicitWithdrawal": true, "listPurposes": true, "position": "float-top-center", "rejectButtonDisplay": true, "showPurposesToggles": true } };</script>
-    <script type="text/javascript" src="//cdn.iubenda.com/cs/gpp/stub.js"></script>
-    <script type="text/javascript" src="//cdn.iubenda.com/cs/iubenda_cs.js" charset="UTF-8" async></script>
-
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
