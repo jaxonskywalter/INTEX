@@ -1,0 +1,79 @@
+﻿@{
+    ViewData["Title"] = "More Info";
+}
+
+
+@model INTEX.Models.Burialmain
+
+<!--<div class="border p-4">
+    <form>
+        <label asp-for="Id">Burial ID: @Model.Id</label>-->
+        @*<input asp-for="Id" class="form-control" />*@
+
+        <!--<label asp-for="Sex">Sex:</label>
+        <select asp-for="Sex" class="form-control">
+            <option value="">Select</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+        </select>
+
+        <label asp-for="Depth">Depth:</label>
+        <input asp-for="Depth" class="form-control" />
+
+        <label asp-for="Headdirection">Head Direction:</label>
+        <input asp-for="Headdirection" class="form-control" />
+
+        <label asp-for="Haircolor">Hair Color:</label>
+        <input asp-for="Haircolor" class="form-control" />
+
+        <label asp-for="Ageatdeath">Age at Death:</label>
+        <select asp-for="Ageatdeath" class="form-control">
+            <option value="">Select</option>
+            <option value="A">Adult</option>
+            <option value="C">Child</option>
+            <option value="I">Infant</option>
+            <option value="N">Newborn</option>
+            <option value="U">Unkown</option>
+        </select>
+
+        <a class="btn btn-success mt-3" asp-controller="Home" asp-action="Data">Return to Table</a>
+    </form>
+</div>-->
+
+
+<div style="border: 2px solid black; text-align: center; font-weight: bold; padding: 10px;">
+    <p>Burial ID: @Model.Id</p>
+    <p>Square North/South: @Model.Squarenorthsouth</p>
+    <p>Head Direction: @Model.Headdirection</p>
+    <p>Sex: @Model.Sex</p>
+    <p>North/South: @Model.Northsouth</p>
+    <p>Depth: @Model.Depth</p>
+    <p>East/West: @Model.Eastwest</p>
+    <p>Adult/Subadult: @Model.Adultsubadult</p>
+    <p>Face Bundles: @Model.Facebundles</p>
+    <p>South to Head: @Model.Southtohead</p>
+    <p>Preservation: @Model.Preservation</p>
+    <p>Field Book Page: @Model.Fieldbookpage</p>
+    <p>Square East/West: @Model.Squareeastwest</p>
+    <p>Goods: @Model.Goods</p>
+    <p>Text: @Model.Text</p>
+    <p>Wrapping: @Model.Wrapping</p>
+    <p>Hair Color: @Model.Haircolor</p>
+    <p>West to Head: @Model.Westtohead</p>
+    <p>Samples Collected: @Model.Samplescollected</p>
+    <p>Area: @Model.Area</p>
+    <p>Burial Number: @Model.Burialnumber</p>
+    <p>Length: @Model.Length</p>
+    <p>Data Expert Initials: @Model.Dataexpertinitials</p>
+    <p>West to Feet: @Model.Westtofeet</p>
+    <p>Age at Death: @Model.Ageatdeath</p>
+    <p>South to Feet: @Model.Southtofeet</p>
+    <p>Excavation Recorder: @Model.Excavationrecorder</p>
+    <p>Photos: @Model.Photos</p>
+    <p>Hair: @Model.Hair</p>
+    <p>Burial Materials: @Model.Burialmaterials</p>
+    <p>Date of Excavation: @Model.Dateofexcavation</p>
+    <p>Field Book Excavation Year: @Model.Fieldbookexcavationyear</p>
+    <p>Cluster Number: @Model.Clusternumber</p>
+    <p>Shaft Number: @Model.Shaftnumber</p>
+</div>

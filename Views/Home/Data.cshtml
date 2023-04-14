@@ -3,102 +3,169 @@
     ViewData["Title"] = "Data";
 }
 
+@{
+    Layout = "~/Views/Shared/MyNewLayout.cshtml";
+}
+
 @model RecordsViewModel
-<!--BOOTSTRAP JUMBOTRON-->
-@*<div class="jumbotron">
-        <h1>Burial Data:</h1>
-    </div>*@
+
 
 <!-- DATA TABLE -->
-<form method="get">
-    <div style="margin: 20px">
-        <button type="submit" class="btn btn-primary mb-1">Apply Filter</button>
-        <a class="btn btn-success mb-1 ml-auto" asp-controller="Home" asp-action="AddRecord" role="button">Add Record</a>
+
+<div class="row">
+    <div class="col-2">
+        @*<div class="bg-light ml-2 pb-4 pt-3 pl-3">
+            <h3>Data Menu</h3>
+            <ul>
+                <li><a asp-controller="BurialMain" asp-action="Index">Burial Main</a></li>
+                <li><a asp-controller="BodyAnalysis" asp-action="Index">BodyAnalysis</a></li>
+                <li><a asp-controller="TextileStructure" asp-action="Index">Textile Structure</a></li>
+                <li><a asp-controller="TextileColor" asp-action="Index">Textile Color</a></li>
+                <li><a asp-controller="TextileFunction" asp-action="Index">Textile Function</a></li>
+            </ul>
+        </div>*@
 
 
-        <table class="table table-bordered table-striped">
+        <div class="bg-light ml-2 mt-2 pb-4 pt-3 pl-3">
+            <div class="text-center">
+                <h1 class="display-4">Filter</h1>
+                <h6>Filter burial information</h6>
+            </div>
 
-
-            <thead>
-                <tr>
-                    <th scope="col">BurialID</th>
-
-                    <th scope="col">
-                        <label for="Sex">Sex</label>
-                        @*<select name="Sex">
-                            <option value="">SEX</option>
-                            <option value="Red">Male</option>
-                            <option value="Blue">Female</option>
-                        </select>*@
-                    </th>
-
-                    <th scope="col">Burial Depth</th>
-
-                    @*<th scope="col">Estimated Stature</th>*@
-
-                    <th scope="col">Head Direction</th>
-
-                    <th scope="col">
-                        <label for="AgeAtDeath">Age at Death</label>
-                        @*<select name="AgeAtDeath">
-                            <option value="">Age at Death:</option>
-                            <option value="A">Adult</option>
-                            <option value="C">Child</option>
-                            <option value="I">Infant</option>
-                            <option value="N">Newborn</option>
-                            <option value="U">Unkown</option>
-                        </select>*@
-                    </th>
-
-                    <th scope="col">Hair Color</th>
-
-                    <th scope="col">Textile structure</th>
-
-
-                    <th scope="col">
-                        <label for="textileColor">Textile Color:</label>
-                        @*<select name="textileColor">
-                            <option value="">--Select Color--</option>
-                            <option value="Red">Red</option>
-                            <option value="Blue">Blue</option>
-                            <option value="Green">Green</option>
-                        </select>*@
-                    </th>
-
-
-                    <th scope="col">Textile function</th>
-                </tr>
-            </thead>
-
-
-            <tbody>
-                @foreach (Burialmain b in Model.Records)
-                {
-                    <tr>
-                        <td>@b.Id</td>
-                        <td>@b.Sex</td>
-                        <td>@b.Depth</td>
-                        <!--Estimated Stature-->
-                        @*<td>@b.Bodyanalysischartreal</td>*@
-
-                        <td>@b.Headdirection</td>
-                        <td>@b.Ageatdeath</td>
-                        <td>@b.Haircolor</td>
-                        <!--Textile structure--><td></td>
-                        <!--Textile color--><td></td>
-                        <!--Textile function--><td></td>
-                        <td><a asp-controller="Home" asp-action="Edit" asp-route-burialid="@b.Id" class="btn btn-info" style="color: white;">Edit</a></td>
-                        <td><a asp-controller="Home" asp-action="Delete" asp-route-burialid="@b.Id" class="btn btn-danger">Delete</a></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+            <form method="get" action="Filter">
+                <label for="sex">Sex:</label>
+                <select name="sex">
+                    <option value=""> -- Select Sex -- </option>
+                    <option value="M">Male</option>
+                    <option value="F">Female</option>
+                </select>
+                <br />
+                <label for="burialdepth">Burial Depth</label>
+                <input type="text" id="burialdepth" name="burialdepth" />
+                <br />
+                <label for="stature">Estimate Stature</label>
+                <input type="text" id=" stature" name=" stature" />
+                <br />
+                <label for="ageatdeath">Age at Death</label>
+                <select name="ageatdeath">
+                    <option value=""> -- Select Age at Death --</option>
+                    <option value="A">Adult</option>
+                    <option value="C">Child</option>
+                    <option value="I">Infant</option>
+                    <option value="N">Newborn</option>
+                    <option value="U">Unknown</option>
+                </select>
+                <br />
+                <label for="headdirection">Head Direction</label>
+                <select name="headdirection">
+                    <option value=""> -- Select Head Direction -- </option>
+                    <option value="W">West</option>
+                    <option value="E">East</option>
+                    <option value="I"> Indeterminate</option>
+                </select>
+                <br />
+                <label for="squarenorthsouth">SquareNorthSouth</label>
+                <input type="text" id="squarenorthsouth" name="squarenorthsouth" />
+                <br />
+                <label for="northsouth">NorthSouth</label>
+                <select name="northsouth">
+                    <option value=""> -- Select a Direction</option>
+                    <option value="N"> North</option>
+                    <option value="S">South</option>
+                </select>
+                <br />
+                <label for="squareeastwest">SquareEastWest</label>
+                <input type="text" id="squareeastwest" name="squareeastwest" />
+                <br />
+                <label for="eastwest">EastWest</label>
+                <select name="eastwest">
+                    <option value=""> -- Select a Direction -- </option>
+                    <option value="E">East</option>
+                    <option value="W">West</option>
+                </select>
+                <br />
+                <label name="area">Area</label>
+                <select name="area">
+                    <option value=""> -- Select an Area -- </option>
+                    <option value="SW">South West</option>
+                    <option value="SE">South East</option>
+                    <option value="NW">North West</option>
+                    <option value="NE">North East</option>
+                </select>
+                <br />
+                <label name="burialnumber">Burial Number</label>
+                <input type="text" id="burialnumber" name="burialnumber" />
+                <br />
+                <label name="haircolor">Hair Color</label>
+                <select name="haircolor">
+                    <option value=""> -- Hair Color --</option>
+                    <option value="B">Brown</option>
+                    <option value="K">Black</option>
+                    <option value="A">Brown-Red</option>
+                    <option value="R"> Red / Red-Blonde</option>
+                    <option value="D"> Blonde</option>
+                    <option value="U"> Unknown</option>
+                </select>
+                <br />
+                <input type="submit" class="btn btn-primary" value="Filter Results" />
+            </form>
+        </div>
     </div>
-</form>
 
-    <p><b>Page:</b></p>
+    <div class="col-10">
+        <form method="get">
+            <h2 class="text-center mb-4">Burial Main</h2>
+            <div style="margin: 20px">
 
-    <!--Dynamically creates page numbers to go to next set of books-->
-    <div page-model="@Model.PageInfo" page-action="Data" page-class="btn"
-         page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-class-enabled="true"
-         class="btn-group pull-right m-1"></div>
+                <table class="table ">
+
+
+                    <thead>
+                        <tr>
+                            <th scope="col">Burial location</th>
+                            <th scope="col">Burial Depth</th>
+                            <th scope="col">Length</th>
+                            <th scope="col">Head Direction</th>
+                            <th scope="col">Preservation</th>
+                            <th scope="col">Wrapping</th>
+                            <th scope="col">Sex</th>
+                            <th scope="col">Age at Death</th>
+                            <th scope="col">Hair Color</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"><a class="btn btn-success mb-1 ml-auto" asp-controller="Home" asp-action="AddRecord" role="button">Add Record</a></th>
+                        </tr>
+                    </thead>
+
+
+                    <tbody>
+                        @foreach (Burialmain b in Model.Records)
+                        {
+                            <tr class="highlight-row">
+                                <td>@b.Squarenorthsouth @b.Northsouth @b.Squareeastwest @b.Eastwest @b.Area @b.Burialnumber</td>
+                                <td>@b.Depth</td>
+                                <td>@b.Length</td>
+                                <td>@b.Headdirection</td>
+                                <td>@b.Preservation</td>
+                                <td>@b.Wrapping</td>
+                                <td>@b.Sex</td>
+                                <td>@b.Ageatdeath</td>
+                                <td>@b.Haircolor</td>
+                                <td><a asp-controller="Home" asp-action="MoreInfo" asp-route-burialid="@b.Id" class="btn btn-info" style="color: white;">View</a></td>
+                                <td><a asp-controller="Home" asp-action="Edit" asp-route-burialid="@b.Id" class="btn btn-primary" style="color: white;">Edit</a></td>
+                                <td><a asp-controller="Home" asp-action="Delete" asp-route-burialid="@b.Id" class="btn btn-danger">Delete</a></td>
+                            </tr>
+                            }
+                        </tbody>
+                </table>
+            </div>
+        </form>
+
+        <p><b>Page:</b></p>
+
+        <!--Dynamically creates page numbers to go to next set of books-->
+        <div page-model="@Model.PageInfo" page-action="Data" page-class="btn"
+             page-class-normal="btn-outline-dark" page-class-selected="btn-primary" page-class-enabled="true"
+             class="btn-group pull-right m-1"></div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+﻿
+@{
+}
+
+@model IEnumerable<string>
+
+
+<select name="Sex">
+    <option value="">Select</option>
+    @foreach (var type in Model)
+    {
+        <option value="@type">@type</option>
+    }
+</select>
