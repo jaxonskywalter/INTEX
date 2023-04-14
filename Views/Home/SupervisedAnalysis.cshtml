@@ -1,6 +1,243 @@
-@{
-    ViewData["Title"] = "Supervised";
-}
-<h1>@ViewData["Title"]</h1>
+@*@{
+        ViewData["Title"] = "Supervised";
+    }
 
-<p>Supervised Analysis Page</p>
+    @{
+        var prediction = ViewBag.Prediction as Prediction;
+    }
+
+    <h1>@ViewData["Title"]</h1>
+
+    <div>
+        <form method="post" asp-action="SupervisedAnalysis">
+            <label for="depth">Depth:</label>
+            <input type="text" name="depth" id="depth" />
+            <label for="length">Length:</label>
+            <input type="text" name="length" id="length" />
+            <label for="headdirection_">Head Direction_ :</label>
+            <input type="text" name="headdirection_" id="headdirection_" />
+            <label for="headdirection_E">Head Direction_E:</label>
+            <input type="text" name="headdirection_E" id="headdirection_E" />
+            <label for="headdirection_W">Head Direction_W:</label>
+            <input type="text" name="headdirection_W" id="headdirection_W" />
+            <label for="sex_">Sex_:</label>
+            <input type="text" name="sex_" id="sex_" />
+            <label for="sex_F">Sex_F:</label>
+            <input type="text" name="sex_F" id="sex_F" />
+            <label for="sex_M">Sex_M:</label>
+            <input type="text" name="sex_M" id="sex_M" />
+            <label for="area_NE">Area_NE:</label>
+            <input type="text" name="area_NE" id="area_NE" />
+            <label for="area_SE">Area_SE:</label>
+            <input type="text" name="area_SE" id="area_SE" />
+            <label for="area_SW">Area_SW:</label>
+            <input type="text" name="area_SW" id="area_SW" />
+            <label for="ageatdeath_">Ageatdeath_:</label>
+            <input type="text" name="ageatdeath_" id="ageatdeath_" />
+            <label for="ageatdeath_A">Ageatdeath_A:</label>
+            <input type="text" name="ageatdeath_A" id="ageatdeath_A" />
+            <label for="ageatdeath_C">Ageatdeath_C:</label>
+            <input type="text" name="ageatdeath_C" id="ageatdeath_C" />
+            <label for="ageatdeath_I">Ageatdeath_I:</label>
+            <input type="text" name="ageatdeath_I" id="ageatdeath_I" />
+            <label for="ageatdeath_N">Ageatdeath_N:</label>
+            <input type="text" name="ageatdeath_N" id="ageatdeath_N" />
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+    @if (prediction != null)
+    {
+        <h3 class="card-title" style="font-weight:bold;">Your Prediction is: @prediction.PredictedValue</h3>
+    }
+    else
+    {
+        <p></p>
+    }*@
+
+@*//////////////////////////////////////////////////////////*@
+
+@{
+    ViewData["Title"] = "Supervised Analysis";
+}
+
+@*@{
+        var prediction = ViewBag.Prediction as Prediction;
+    }*@
+
+<style>
+    .center {
+        display: flex;
+        justify-content: center;
+    }
+</style>
+
+<div class="text-center">
+    <h1 class="display-4">Supervised Analysis</h1>
+</div>
+<form class="center">
+    <div class="row text-center" style="padding-top:50px">
+        <div class="col-12">
+            <h4>Fill out the form to predict how your mummy was most likely wrapped</h4><br />
+            <div class="form-group" style="margin-top:10px; margin-bottom:15px">
+                <label for="Depth">Depth:</label>
+                <input type="text" name="Depth" id="Depth" /><br /><br />
+                <label for="Length">Length:</label>
+                <input type="text" name="Length" id="Length" /><br /><br />
+                <label for="headDirection" class="myLabelSuper">Head Direction:</label>
+                <select id="headDirection" class="form-control myInput" name="headDirection">
+                    <option value="headdirection_">-</option>
+                    <option value="headdirection_E">East</option>
+                    <option value="headdirection_W">West</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 15px">
+                <label for="ageAtDeath" class="myLabelSuper">Age At Death:</label>
+                <select id="ageAtDeath" class="form-control myInput" name="ageAtDeath">
+                    <option value="ageatdeath_">-</option>
+                    <option value="ageatdeath_A">Adult</option>
+                    <option value="ageatdeath_C">Child</option>
+                    <option value="ageatdeath_I">Infant</option>
+                    <option value="ageatdeath_N">Newborn</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 15px">
+                <label for="sex" class="myLabelSuper">Sex:</label>
+                <select id="sex" class="form-control myInput" name="sex">
+                    <option value="sex_">-</option>
+                    <option value="sex_F">Female</option>
+                    <option value="sex_M">Male</option>
+                </select>
+            </div>
+            <div class="form-group" style="margin-bottom: 15px">
+                <label for="area" class="myLabelSuper">Area:</label>
+                <select id="area" class="form-control myInput" name="area">
+                    <option value="area_">-</option>
+                    <option value="area_NE">North East</option>
+                    <option value="area_SE">South East</option>
+                    <option value="area_SW">South West</option>
+                </select>
+            </div>
+            <br />
+            <button id="custom-button">Predict Wrapping!</button>
+            <br />
+            <br />
+        </div>
+    </div>
+</form>
+
+<h4 class="text-center">Wrapping Prediction:</h4>
+<h4 class="text-center" id="predictionResult"></h4>
+
+<script>
+    const customButton = document.getElementById('custom-button');
+    customButton.addEventListener('click', function (event) {
+        event.preventDefault();
+        const inputData = {
+            "headdirection_": 0,
+            "headdirection_E": 0,
+            "headdirection_W": 1,
+            "ageatdeath_": 0,
+            "ageatdeath_A": 1,
+            "ageatdeath_C": 0,
+            "ageatdeath_I": 0,
+            "ageatdeath_N": 0,
+            "sex_": 0,
+            "sex_F": 0,
+            "sex_M": 1,
+            "area_NE": 0,
+            "area_SE": 1,
+            "area_SW": 0,
+        }
+
+        function updateInputData() {
+            const headDirectionInput = document.querySelector('#headDirection').value;
+            const ageAtDeathInput = document.querySelector('#ageAtDeath').value;
+            const sexInput = document.querySelector('#sex').value;
+            const areaInput = document.querySelector('#area').value;
+            if (ageAtDeathInput === 'A') {
+                inputData.ageatdeath_A = 1;
+                inputData.ageatdeath_C = 0;
+                inputData.ageatdeath_N = 0;
+                inputData.ageatdeath_ = 0;
+            }
+            else if (ageAtDeathInput === 'C') {
+                inputData.ageatdeath_C = 1;
+                inputData.ageatdeath_A = 0;
+                inputData.ageatdeath_N = 0;
+                inputData.ageatdeath_ = 0;
+            }
+            else if (ageAtDeathInput === 'I') {
+                inputData.ageatdeath_I = 1;
+                inputData.ageatdeath_A = 0;
+                inputData.ageatdeath_N = 0;
+                inputData.ageatdeath_ = 0;
+            }
+            else if (ageAtDeathInput === 'N') {
+                inputData.ageatdeath_N = 1;
+                inputData.ageatdeath_A = 0;
+                inputData.ageatdeath_C = 0;
+                inputData.ageatdeath_ = 0;
+            }
+            if (headDirectionInput == 'E') {
+                inputData.headdirection_E = 1;
+                inputData.headdirection_W = 0;
+                inputData.headdirection_ = 0;
+            }
+            else if (headDirectionInput == 'W') {
+                inputData.headdirection_E = 0;
+                inputData.headdirection_W = 1;
+                inputData.headdirection_ = 0;
+            }
+            if (sexInput == 'sex_') {
+                inputData.sex_ = 1;
+                inputData.sex_F = 0;
+                inputData.sex_M = 0;
+            }
+            else if (sexInput == 'sex_F') {
+                inputData.sex_ = 0;
+                inputData.sex_F = 1;
+                inputData.sex_M = 0;
+            }
+            else if (sexInput == 'sex_M') {
+                inputData.sex_ = 0;
+                inputData.sex_F = 0;
+                inputData.sex_M = 1;
+            }
+            if (areaInput == 'area_NE') {
+                inputData.area_NE = 1;
+                inputData.area_SE = 0;
+                inputData.area_SW = 0;
+            }
+            else if (areaInput == 'area_SE') {
+                inputData.area_NE = 0;
+                inputData.area_SE = 1;
+                inputData.area_SW = 0;
+            }
+            else if (areaInput == 'area_SW') {
+                inputData.area_NE = 0;
+                inputData.area_SE = 0;
+                inputData.area_SW = 1;
+            }
+        }
+
+        fetch('/predict', {
+            method: 'POST',
+            body: JSON.stringify(inputData),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(prediction => {
+                console.log(prediction);
+                // Update the h4 tag with the prediction result
+                document.querySelector('#predictionResult').textContent = String(prediction.predictedValue);
+        console.log("it got here at least");
+    })
+        .catch(error => {
+            alert("Something went wrong...");
+        });
+
+    })
+</script>

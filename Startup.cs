@@ -14,6 +14,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.ML.OnnxRuntime;
 
 namespace INTEX
 {
@@ -35,6 +36,9 @@ namespace INTEX
                 .AddEntityFrameworkStores<ApplicationDbContext>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services.AddSingleton<InferenceSession>(
+                new InferenceSession("./Analysis/mummy-6.onnx")
+);
 
         }
 
