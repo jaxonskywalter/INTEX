@@ -2,9 +2,20 @@
     ViewData["Title"] = "Users";
 }
 
-
 @model INTEX.Models.UserListModel
 
+@section Styles {
+    <style>
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .table-responsive {
+            border-top: 1px solid #dee2e6;
+        }
+    </style>
+}
 
 <div class="container mt-4">
     <div class="row mb-3">
@@ -16,28 +27,32 @@
         </div>
     </div>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var user in Model.Users)
-            {
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
                 <tr>
-                    <td>@user.UserName</td>
-                    <td>@user.Email</td>
-                    <td>@Model.UserRoles[user.Id]</td>
-                    <td>
-                        <a href="@Url.Action("Edit", "Admin", new { id = user.Id })" class="btn-primary">Edit</a>
-                        <a href="@Url.Action("Delete", "Admin", new { id = user.Id })" class="btn btn-danger">Delete</a>
-                    </td>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var user in Model.Users)
+                {
+                    <tr>
+                        <td>@user.UserName</td>
+                        <td>@user.Email</td>
+                        <td>@Model.UserRoles[user.Id]</td>
+                        <td>
+                            <div class="actions">
+                                <a href="@Url.Action("Edit", "Admin", new { id = user.Id })" class="btn btn-primary btn-sm">Edit</a>
+                                <a href="@Url.Action("Delete", "Admin", new { id = user.Id })" class="btn btn-danger btn-sm">Delete</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
