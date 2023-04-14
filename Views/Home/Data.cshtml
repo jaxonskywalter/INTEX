@@ -133,28 +133,35 @@
                             <th scope="col">Hair Color</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-                            <th scope="col"><a class="btn btn-success mb-1 ml-auto" asp-controller="Home" asp-action="AddRecord" role="button">Add Record</a></th>
-                        </tr>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <th scope="col"><a class="btn btn-success mb-1 ml-auto" asp-controller="Home" asp-action="AddRecord" role="button">Add Record</a></th>
+                            }
+                            </tr>
                     </thead>
 
 
                     <tbody>
                         @foreach (Burialmain b in Model.Records)
                         {
-                            <tr class="highlight-row">
-                                <td>@b.Squarenorthsouth @b.Northsouth @b.Squareeastwest @b.Eastwest @b.Area @b.Burialnumber</td>
-                                <td>@b.Depth</td>
-                                <td>@b.Length</td>
-                                <td>@b.Headdirection</td>
-                                <td>@b.Preservation</td>
-                                <td>@b.Wrapping</td>
-                                <td>@b.Sex</td>
-                                <td>@b.Ageatdeath</td>
-                                <td>@b.Haircolor</td>
-                                <td><a asp-controller="Home" asp-action="MoreInfo" asp-route-burialid="@b.Id" class="btn btn-info" style="color: white;">View</a></td>
+                        <tr class="highlight-row">
+                            <td>@b.Squarenorthsouth @b.Northsouth @b.Squareeastwest @b.Eastwest @b.Area @b.Burialnumber</td>
+                            <td>@b.Depth</td>
+                            <td>@b.Length</td>
+                            <td>@b.Headdirection</td>
+                            <td>@b.Preservation</td>
+                            <td>@b.Wrapping</td>
+                            <td>@b.Sex</td>
+                            <td>@b.Ageatdeath</td>
+                            <td>@b.Haircolor</td>
+                            <td><a asp-controller="Home" asp-action="MoreInfo" asp-route-burialid="@b.Id" class="btn btn-info" style="color: white;">View</a></td>
+                            @if (User.Identity.IsAuthenticated)
+                            {
                                 <td><a asp-controller="Home" asp-action="Edit" asp-route-burialid="@b.Id" class="btn btn-primary" style="color: white;">Edit</a></td>
                                 <td><a asp-controller="Home" asp-action="Delete" asp-route-burialid="@b.Id" class="btn btn-danger">Delete</a></td>
-                            </tr>
+                            }
+
+                        </tr>
                             }
                         </tbody>
                 </table>

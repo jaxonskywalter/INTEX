@@ -1,0 +1,102 @@
+﻿
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+@model INTEX.Models.Burialmain
+
+<div class="border p-4">
+    <form method="post">
+        <label asp-for="Id">Burial ID:</label>
+        <input asp-for="Id" class="form-control" />
+
+        <label for="Sex">Sex:</label>
+        <select name="Sex" class="form-control">
+            <option value="@Model.Sex">@Model.Sex</option>
+            <option value="M">Male</option>
+            <option value="F">Female</option>
+            <option value="">Null</option>
+        </select>
+        <br />
+
+        <br />
+
+        <br />
+        <label for="burialdepth">Burial Depth</label>
+        <input type="text" id="burialdepth" name="burialdepth" class="form-control" value="@Model.Depth" />
+        <br />
+        <label for="stature">Estimate Stature</label>
+        <input type="text" id=" stature" name=" stature" class="form-control" value="@Model.Length" />
+        <br />
+        <label for="ageatdeath">Age at Death</label>
+        <select name="ageatdeath" class="form-control">
+            <option value="@Model.Ageatdeath">@Model.Ageatdeath</option>
+            <option value="A">Adult</option>
+            <option value="C">Child</option>
+            <option value="I">Infant</option>
+            <option value="N">Newborn</option>
+            <option value="U">Unknown</option>
+            <option value="">Null</option>
+        </select>
+        <br />
+        <label for="headdirection">Head Direction</label>
+        <select name="headdirection" class="form-control">
+            <option value="@Model.Headdirection">@Model.Headdirection</option>
+            <option value="W">West</option>
+            <option value="E">East</option>
+            <option value="I"> Indeterminate</option>
+            <option value="">Null</option>
+        </select>
+        <br />
+        <label for="squarenorthsouth">SquareNorthSouth</label>
+        <input type="text" id="squarenorthsouth" name="squarenorthsouth" class="form-control" value="@Model.Squarenorthsouth" />
+        <br />
+        <label for="northsouth">NorthSouth</label>
+        <select name="northsouth" class="form-control">
+            <option value="@Model.Northsouth">@Model.Northsouth</option>
+            <option value="N"> North</option>
+            <option value="S">South</option>
+            <option value="">Null</option>
+        </select>
+        <br />
+        <label for="squareeastwest">SquareEastWest</label>
+        <input type="text" id="squareeastwest" name="squareeastwest" class="form-control" value="@Model.Squareeastwest" />
+        <br />
+        <label for="eastwest">EastWest</label>
+        <select name="eastwest" class="form-control">
+            <option value="@Model.Eastwest">@Model.Eastwest</option>
+            <option value="E">East</option>
+            <option value="W">West</option>
+            <option value="">Null</option>
+        </select>
+        <br />
+        <label name="area">Area</label>
+        <select name="area" class="form-control">
+            <option value="@Model.Area">@Model.Area</option>
+            <option value="SW">South West</option>
+            <option value="SE">South East</option>
+            <option value="NW">North West</option>
+            <option value="NE">North East</option>
+            <option value="">Null</option>
+        </select>
+        <br />
+        <label name="burialnumber">Burial Number</label>
+        <input type="text" id="burialnumber" name="burialnumber" class="form-control" value="@Model.Burialnumber" />
+        <br />
+        <label name="haircolor">Hair Color</label>
+        <select name="haircolor" class="form-control">
+            <option value="@Model.Haircolor">@Model.Haircolor</option>
+            <option value="B">Brown</option>
+            <option value="K">Black</option>
+            <option value="A">Brown-Red</option>
+            <option value="R"> Red / Red-Blonde</option>
+            <option value="D"> Blonde</option>
+            <option value="U"> Unknown</option>
+            <option value="">Null</option>
+        </select>
+        <br />
+
+        <button type="submit" class="btn btn-success mt-3">Save</button>
+    </form>
+</div>
