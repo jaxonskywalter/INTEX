@@ -1,3 +1,6 @@
+@*This commented section above is the original code that worked perfectly to link to the ONNX file and 
+predict a wrapping value. It just wasn't as user friendly as the executed code below'*@
+
 @*@{
         ViewData["Title"] = "Supervised";
     }
@@ -60,10 +63,6 @@
 @{
     ViewData["Title"] = "Supervised Analysis";
 }
-
-@*@{
-        var prediction = ViewBag.Prediction as Prediction;
-    }*@
 
 <style>
     .center {
@@ -129,6 +128,7 @@
 <h4 class="text-center">Wrapping Prediction:</h4>
 <h4 class="text-center" id="predictionResult"></h4>
 
+@*sets the variables and default value for each feature*@
 <script>
     const customButton = document.getElementById('custom-button');
     customButton.addEventListener('click', function (event) {
@@ -150,6 +150,8 @@
             "area_SW": 0,
         }
 
+        //creates a function that updates the input data depending on what drop down selection
+        // the user chooses in the form
         function updateInputData() {
             const headDirectionInput = document.querySelector('#headDirection').value;
             const ageAtDeathInput = document.querySelector('#ageAtDeath').value;
@@ -221,6 +223,7 @@
             }
         }
 
+        //connects prediction from ONNX file
         fetch('/predict', {
             method: 'POST',
             body: JSON.stringify(inputData),
