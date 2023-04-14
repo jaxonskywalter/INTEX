@@ -119,11 +119,11 @@ namespace INTEX.Controllers
                     RecordsPerPage = pageSize,
                     CurrentPage = pageNum
                 }
-            var model = new RecordsViewModel
-            {
-                Records = (IQueryable<Burialmain>)records.ToList()
+                //var model = new RecordsViewModel
+                //{
+                //    Records = (IQueryable<Burialmain>)Records.ToList()
+                //};
             };
-
 
 
 
